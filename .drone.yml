@@ -1,0 +1,16 @@
+----
+kind: pipeline
+type: docker
+name: default
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+  - name: pylint
+    user: root
+    image: python:3.7.5-buster
+    commands:
+      - pip install -r requirements.txt
+      - python -m pylint chat_scrapper
