@@ -23,7 +23,7 @@ class Config():
     def bearer_token(self, value):
         self.credentials['TWITCH_BEARER_TOKEN'] = value
 
-        with open(creds_file, 'w') as file_handler:
+        with open(self.creds_file, 'w') as file_handler:
             self.config_file.write(file_handler)
 
     @property
@@ -34,5 +34,5 @@ class Config():
     def bearer_token_expiration(self, value):
         self.credentials['TWITCH_BEARER_TOKEN_EXPIRATION'] = value
 
-        with open(creds_file, 'w') as file_handler:
+        with open(self.creds_file, 'w') as file_handler:
             self.config_file.write(file_handler)
