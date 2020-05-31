@@ -19,7 +19,13 @@ config = Config()
 # Get Clip Metadata
 url = f"https://api.twitch.tv/kraken/clips/{options.video_id}"
 # url = f"https://api.twitch.tv/helix/clips?id={options.video_id}"
-resp = make_request(config, url).json()
+raw_resp = make_request(config, url)
+resp = raw_resp.json()
+
+if raw_resp.status_code == 404:
+    print('Twitch clip has been deleted')
+    sys.exit(1)
+
 vod = resp.get('vod')
 
 if vod:
