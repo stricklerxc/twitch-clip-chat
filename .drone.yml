@@ -13,4 +13,4 @@ steps:
     image: python:3.7.5-buster
     commands:
       - pip install -r requirements.txt
-      - python -m pylint --errors-only chat_scrapper
+      - python -m pylint --errors-only twitch_clip_chat

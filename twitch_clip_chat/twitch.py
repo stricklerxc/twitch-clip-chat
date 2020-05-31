@@ -1,6 +1,6 @@
 import csv
 import requests
-from chat_scrapper.oauth import get_oauth_token
+from .oauth import get_oauth_token
 
 def make_request(config, url):
     headers = {

@@ -5,9 +5,9 @@ import sys
 
 import pprint
 
-from chat_scrapper.config import Config
-from chat_scrapper.parser import setup_parser
-from chat_scrapper.twitch import make_request, grab_comments
+from twitch_clip_chat.config import Config
+from twitch_clip_chat.parser import setup_parser
+from twitch_clip_chat.twitch import make_request, grab_comments
 
 pp = pprint.PrettyPrinter(indent=2)
 
