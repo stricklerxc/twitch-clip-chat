@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import requests
 import sys
 
 from .config import Config

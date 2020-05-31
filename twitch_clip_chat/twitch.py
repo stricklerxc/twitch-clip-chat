@@ -1,6 +1,6 @@
-import csv
-import requests
-from .oauth import get_oauth_token
+from csv import writer
+from requests import get
+# from .oauth import get_oauth_token
 
 def make_request(config, url):
     headers = {
@@ -11,7 +11,7 @@ def make_request(config, url):
         # 'Authorization': f'Bearer {get_oauth_token(config)}'
     }
 
-    resp = requests.get(url, headers=headers)
+    resp = get(url, headers=headers)
 
     if resp.status_code != 200:
         print(f'Request returned a non-successful error code {resp.status_code}')
@@ -27,7 +27,7 @@ def grab_comments(_id, offset, duration, config, options):
     url = base_url + f'content_offset_seconds={offset}'
     resp = make_request(config, url).json()
 
-    while ('_next' in resp):
+    while '_next' in resp:
         comments = resp['comments']
         next_token = resp['_next']
 
@@ -45,5 +45,5 @@ def grab_comments(_id, offset, duration, config, options):
         resp = make_request(config, url).json()
 
     with open(f'{options.video_id}.csv', 'w', newline='') as file_handler:
-        csv_writer = csv.writer(file_handler)
+        csv_writer = writer(file_handler)
         csv_writer.writerows(clip_comments)
