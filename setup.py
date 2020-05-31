@@ -23,7 +23,7 @@ setup(
     description="Python package for scrapping chat from Twitch clips",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/stricklerxc/twitch-clip-scrapper",
+    url="https://github.com/stricklerxc/twitch-clip-chat",
     packages=packages,
     install_requires=install_requires,
     entry_points=entry_points,
