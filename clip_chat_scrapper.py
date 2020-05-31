@@ -19,13 +19,15 @@ config = Config()
 # Get Clip Metadata
 url = f"https://api.twitch.tv/kraken/clips/{options.video_id}"
 # url = f"https://api.twitch.tv/helix/clips?id={options.video_id}"
-resp = make_request(config, url)
-pp.pprint(resp.json())
+resp = make_request(config, url).json()
+vod = resp.get('vod')
 
-# Get Offset
-_id = resp.json()['vod']['id']
-offset = resp.json()['vod']['offset']
-duration = resp.json()['duration']
+if vod:
+    _id = vod['id']
+    offset = vod['offset']
+    duration = resp['duration']
 
-# Get Comments
-grab_comments(_id, offset, duration, config, options)
+    # Get Comments
+    grab_comments(_id, offset, duration, config, options)
+else:
+    print('No vod listed, no comments to grab')
