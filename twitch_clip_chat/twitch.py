@@ -44,6 +44,8 @@ def grab_comments(_id, offset, duration, config, options):
         url = base_url + f'cursor={next_token}'
         resp = make_request(config, url).json()
 
-    with open(f'{options.video_id}.csv', 'w', newline='') as file_handler:
+    with open(f'{options.video_id}.csv', 'w', newline='', encoding='utf-8') as file_handler:
+        headers = ['Timestamp', 'Username', 'Message']
         csv_writer = writer(file_handler)
+        csv_writer.writerow(headers)
         csv_writer.writerows(clip_comments)
