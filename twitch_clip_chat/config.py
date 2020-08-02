@@ -1,10 +1,12 @@
 from configparser import ConfigParser
-from os.path import expanduser
+from os import mkdir
+from os.path import expanduser, exists
 
 class Config():
 
     def __init__(self, **kwargs):
-        self.creds_file = f"{expanduser('~')}/.twitch/credentials"
+        self.config_dir = f"{expanduser('~')}/.twitch"
+        self.creds_file = f"{self.config_dir}/credentials"
         self.config_file = ConfigParser()
         self.config_file.read(self.creds_file)
 
@@ -69,6 +71,9 @@ class Config():
             self._profile = value
 
     def _write(self):
+        # Create config directory if it does not exist
+        self._create_config_dir()
+
         with open(self.creds_file, 'w') as file_handler:
             self.config_file.write(file_handler)
 
@@ -77,3 +82,9 @@ class Config():
 
     def _set_config_prop(self, prop, value):
         self.config_file[self.profile][prop] = value
+
+    def _create_config_dir(self):
+        if not exists(self.config_dir):
+            mkdir(self.config_dir)
+
+
