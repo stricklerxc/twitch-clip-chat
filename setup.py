@@ -18,7 +18,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="twitch_clip_chat",
-    version="0.0.1",
+    version="0.0.2",
     author="Stricklerxc",
     author_email=None,
     description="Python package for scrapping chat from Twitch clips",
