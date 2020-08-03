@@ -7,6 +7,7 @@ def setup_parser():
     get = commands.add_parser('get', help='Scrapes the chat from the given Twitch clip')
     get.add_argument('video_id', metavar='ID', help='Video Id/Slug for the Twitch Clip')
     get.add_argument('-p', '--profile', dest='profile', metavar='', help='Profile to store the Twitch credentials in')
+    get.add_argument('-o', '--output', dest='output', metavar='', choices=['csv', 'json', 'yaml', 'yml'], default='csv', help='Output format for the chat file (default: csv)')
 
 
     configure = commands.add_parser('configure', help='Configure Twitch Credentials')

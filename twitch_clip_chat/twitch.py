@@ -44,8 +44,17 @@ def grab_comments(_id, offset, duration, config, options):
         url = base_url + f'cursor={next_token}'
         resp = make_request(config, url).json()
 
-    with open(f'{options.video_id}.csv', 'w', newline='', encoding='utf-8') as file_handler:
-        headers = ['Timestamp', 'Username', 'Message']
-        csv_writer = writer(file_handler)
-        csv_writer.writerow(headers)
-        csv_writer.writerows(clip_comments)
+    write_to_file(options.video_id, clip_comments, file_extension=options.output, headers=['Timestamp', 'Username', 'Message'])
+
+def write_to_file(filename, content, file_extension='csv', headers=['Timestamp', 'Username', 'Message']):
+    with open(f'{filename}.{file_extension}', 'w', newline='', encoding='utf-8') as file_handler:
+        if file_extension == 'csv':
+            csv_writer = writer(file_handler)
+            csv_writer.writerow(headers)
+            csv_writer.writerows(content)
+        elif file_extension == 'json':
+            import json
+            json.dump(content, file_handler)
+        elif (file_extension == 'yaml') or (file_extension == 'yml'):
+            import yaml
+            yaml.dump(content, file_handler, default_flow_style=False)

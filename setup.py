@@ -5,7 +5,8 @@ packages = [
 ]
 
 install_requires = [
-    "requests>=2.23.0,<3.0.0"
+    "requests>=2.23.0,<3.0.0",
+    "yaml>=5.3.1,<6.0.0"
 ]
 
 entry_points = {
