@@ -1,4 +1,8 @@
 .vscode/
 *.csv
+*.json
+*.yaml
+*.yml
+!.drone.yml
 __pycache__/
 .env
