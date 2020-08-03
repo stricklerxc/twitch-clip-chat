@@ -9,8 +9,7 @@ platform:
 
 steps:
   - name: pylint
-    user: root
     image: python:3.7.5-buster
     commands:
-      - pip install -r requirements.txt
+      - pip install pylint
       - python -m pylint --errors-only twitch_clip_chat
