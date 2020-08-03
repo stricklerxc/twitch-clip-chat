@@ -5,7 +5,8 @@ packages = [
 ]
 
 install_requires = [
-    "requests>=2.23.0,<3.0.0"
+    "requests>=2.23.0,<3.0.0",
+    "yaml>=5.3.1,<6.0.0"
 ]
 
 entry_points = {
@@ -17,7 +18,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="twitch_clip_chat",
-    version="0.0.1",
+    version="0.0.2",
     author="Stricklerxc",
     author_email=None,
     description="Python package for scrapping chat from Twitch clips",

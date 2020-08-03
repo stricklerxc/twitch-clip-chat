@@ -1,4 +1,4 @@
-from csv import writer
+from csv import DictWriter, writer
 from requests import get
 # from .oauth import get_oauth_token
 
@@ -19,7 +19,9 @@ def make_request(config, url):
     return resp
 
 def grab_comments(_id, offset, duration, config, options):
-    clip_comments = []
+    clip_comments = {
+        'comments': []
+    }
     end_of_clip = offset + duration
 
     base_url = f'https://api.twitch.tv/kraken/videos/{_id}/comments?'
@@ -32,20 +34,37 @@ def grab_comments(_id, offset, duration, config, options):
         next_token = resp['_next']
 
         for comment in comments:
-            commenter = comment['commenter']['display_name']
-            content_offset_seconds = comment['content_offset_seconds']
-            body = comment['message']['body']
+            comment_info = {}
 
-            clip_comments.append([content_offset_seconds, commenter, body])
+            comment_info['display_name'] = comment['commenter']['display_name']
+            comment_info['timestamp'] = comment['content_offset_seconds']
+            comment_info['message'] = comment['message']['body']
 
-        if content_offset_seconds > end_of_clip:
+            clip_comments['comments'].append(comment_info)
+
+        if comment_info['timestamp'] > end_of_clip:
             break
 
         url = base_url + f'cursor={next_token}'
         resp = make_request(config, url).json()
 
-    with open(f'{options.video_id}.csv', 'w', newline='', encoding='utf-8') as file_handler:
-        headers = ['Timestamp', 'Username', 'Message']
-        csv_writer = writer(file_handler)
-        csv_writer.writerow(headers)
-        csv_writer.writerows(clip_comments)
+    if options.output == 'csv':
+        content = clip_comments['comments']
+    else:
+        content = clip_comments
+
+    write_to_file(options.video_id, content, file_extension=options.output, headers=['timestamp', 'display_name', 'message'])
+
+def write_to_file(filename, content, file_extension='csv', headers=['Timestamp', 'Username', 'Message']):
+    with open(f'{filename}.{file_extension}', 'w', newline='', encoding='utf-8') as file_handler:
+        if file_extension == 'csv':
+            csv_writer = DictWriter(file_handler, fieldnames=headers)
+
+            csv_writer.writeheader()
+            csv_writer.writerows(content)
+        elif file_extension == 'json':
+            import json
+            json.dump(content, file_handler, indent=4)
+        elif (file_extension == 'yaml') or (file_extension == 'yml'):
+            import yaml
+            yaml.dump(content, file_handler, default_flow_style=False)
