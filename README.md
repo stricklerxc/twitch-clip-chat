@@ -22,6 +22,21 @@ $ source .env/bin/activate
 Usage
 -----
 
+```shell
+$ clip_chat -h
+usage: clip_chat [-h] {get,configure} ...
+
+Twitch Clip Chat - Scrape chat from Twitch Clips
+
+optional arguments:
+-h, --help       show this help message and exit
+
+commands:
+{get,configure}
+    get            Scrapes the chat from the given Twitch clip
+    configure      Configure Twitch Credentials
+```
+
 1. Register your application using the [Twitch Developer Console](https://dev.twitch.tv/console/apps)
 2. Configure Twitch Client Credentials
 
