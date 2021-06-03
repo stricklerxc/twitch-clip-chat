@@ -3,6 +3,6 @@
 *.json
 *.yaml
 *.yml
-!.drone.yml
+!.github/**/*.yml
 __pycache__/
 .env
