@@ -6,7 +6,7 @@ packages = [
 
 install_requires = [
     "requests>=2.23.0,<3.0.0",
-    "pyyaml>=5.3.1,<6.0.0"
+    "pyyaml>=5.4,<6.0.0"
 ]
 
 entry_points = {
